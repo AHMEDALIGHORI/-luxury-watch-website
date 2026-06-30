@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONOS® - Visit Our Boutique</title>
+  <meta name="description" content="Book a private consultation at a KRONOS boutique. Experience our timepieces in person at Geneva, London, or Dubai." />
+  <meta property="og:title" content="KRONOS® - Visit Our Boutique" />
+  <meta property="og:description" content="Book a private consultation at a KRONOS boutique. Experience our timepieces in person." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌚</text></svg>" />
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== PAGE TRANSITION MASK ========== -->
+  <div class="page-transition-mask" id="transitionMask">
+    <div class="page-transition-logo">KRONOS</div>
+  </div>
+
+  <!-- ========== CUSTOM CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ========== SCROLL PROGRESS BAR ========== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ========== FILM GRAIN OVERLAY ========== -->
+  <div class="film-grain" id="filmGrain"></div>
+
+  <!-- ========== INTRO LOADER WITH COUNTER ========== -->
+  <div class="intro-loader" id="introLoader">
+    <div class="intro-logo" id="introLogo">KRONOS</div>
+    <div class="intro-counter" id="introCounter">0</div>
+    <div class="intro-progress">
+      <div class="intro-progress-bar" id="introProgressBar"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" id="navbar">
+    <a href="index.html" class="logo-text">KRONOS</a>
+    <div class="nav-links" id="navLinks">
+      <a href="collections.html" class="nav-link hide-tablet">Collections</a>
+      <a href="configurator.html" class="nav-link hide-tablet">Customizer</a>
+      <a href="simulation.html" class="nav-link hide-tablet">Simulation</a>
+      <a href="heritage.html" class="nav-link hide-tablet">Heritage</a>
+      <a href="boutique.html" class="nav-link">Boutique</a>
+      <a href="journal.html" class="nav-link">Journal</a>
+    </div>
+    <div class="nav-right">
+      <!-- ========== AUDIO TOGGLE HUD ========== -->
+      <div class="audio-hud" id="audioToggle" title="Toggle Mechanical ticking sound">
+        <div class="audio-bars">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+        <div class="audio-label">SOUND</div>
+      </div>
+      <a href="collections.html" class="btn-shop" id="btnShop">
+        <div class="btn-fill"></div>
+        <span>SHOP NOW</span>
+      </a>
+      <div class="menu-toggle" id="menuToggle">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== MOBILE FULL-SCREEN NAV ========== -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-links">
+        <a href="collections.html" class="mobile-nav-link" data-index="1">Collections</a>
+        <a href="configurator.html" class="mobile-nav-link" data-index="2">Customizer</a>
+        <a href="simulation.html" class="mobile-nav-link" data-index="3">Simulation</a>
+        <a href="heritage.html" class="mobile-nav-link" data-index="4">Heritage</a>
+        <a href="boutique.html" class="mobile-nav-link" data-index="5">Boutique</a>
+        <a href="journal.html" class="mobile-nav-link" data-index="6">Journal</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="collections.html" class="mobile-nav-btn btn-shop">
+          <div class="btn-fill"></div>
+          <span>SHOP NOW</span>
+        </a>
+        <div class="mobile-nav-social">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MENU OVERLAY ========== -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ========== PAGE CONTENT WRAPPER FOR AJAX TRANSITIONS ========== -->
+  <div id="pageContent">
+
+  <!-- ========== BOUTIQUE HERO ========== -->
+  <section class="section-boutique">
+    <div class="boutique-hero reveal">
+      <div class="text-sm text-muted" style="letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.8rem;">BY APPOINTMENT ONLY</div>
+      <h1>Visit Our <span class="italic">Boutique</span></h1>
+      <p>Experience KRONOS timepieces in person. Our private consultations offer an intimate exploration of our collections, guided by master horologists in an atmosphere of refined exclusivity.</p>
+    </div>
+
+    <div class="pad-side">
+      <div class="container">
+
+        <div class="spacer-lg"></div>
+        <div class="border-line"></div>
+        <div class="spacer-lg"></div>
+
+        <!-- ========== TWO-COLUMN: FORM + INFO ========== -->
+        <div class="boutique-grid reveal">
+
+          <!-- LEFT: Appointment Form -->
+          <div class="boutique-form">
+            <div class="text-sm text-muted" style="letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.8rem;">SCHEDULE YOUR VISIT</div>
+            <h3 class="heading-medium">Request a Private <span class="italic">Appointment</span></h3>
+            <div class="spacer-xs"></div>
+            <p class="text-muted">Complete the form below and a boutique ambassador will confirm your reservation within 24 hours.</p>
+            <div class="spacer-md"></div>
+
+            <form id="appointmentForm" onsubmit="return false;">
+              <div class="boutique-form-row">
+                <label for="fullName">Full Name</label>
+                <input type="text" id="fullName" name="fullName" placeholder="Your full name" required />
+              </div>
+              <div class="boutique-form-row">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="your@email.com" required />
+              </div>
+              <div class="boutique-form-row">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+41 00 000 00 00" />
+              </div>
+              <div class="boutique-form-row">
+                <label for="prefDate">Preferred Date</label>
+                <input type="date" id="prefDate" name="prefDate" required />
+              </div>
+              <div class="boutique-form-row">
+                <label for="prefTime">Preferred Time</label>
+                <select id="prefTime" name="prefTime" required>
+                  <option value="" disabled selected>Select a time slot</option>
+                  <option value="morning">Morning — 10:00 – 12:00</option>
+                  <option value="afternoon">Afternoon — 12:00 – 16:00</option>
+                  <option value="evening">Evening — 16:00 – 19:00</option>
+                </select>
+              </div>
+              <div class="boutique-form-row">
+                <label for="watchInterest">Watch of Interest</label>
+                <select id="watchInterest" name="watchInterest">
+                  <option value="" disabled selected>Select a model</option>
+                  <option value="chronograph-elite">Chronograph Elite</option>
+                  <option value="heritage-rose">Heritage Rose</option>
+                  <option value="diver-titan">Diver Titan</option>
+                  <option value="skeleton-grand">Skeleton Grand</option>
+                  <option value="classic-gold">Classic Gold</option>
+                  <option value="titanium-stealth">Titanium Stealth</option>
+                  <option value="custom-build">Custom Build</option>
+                </select>
+              </div>
+              <div class="boutique-form-row">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4" placeholder="Tell us about your preferences or any special requests…"></textarea>
+              </div>
+              <div class="spacer-xs"></div>
+              <button type="submit" class="newsletter-btn">REQUEST APPOINTMENT</button>
+            </form>
+          </div>
+
+          <!-- RIGHT: Boutique Information -->
+          <div class="boutique-info">
+            <div class="boutique-info-card reveal">
+              <div class="boutique-info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 10c0 6-9 12-9 12S3 16 3 10a9 9 0 1 1 18 0z"/>
+                  <circle cx="12" cy="10" r="3"/>
+                </svg>
+              </div>
+              <h4>Geneva Flagship</h4>
+              <p class="text-muted">12 Rue du Rhône<br>1204 Geneva, Switzerland</p>
+            </div>
+
+            <div class="boutique-info-card reveal">
+              <div class="boutique-info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"/>
+                  <polyline points="12 6 12 12 16 14"/>
+                </svg>
+              </div>
+              <h4>Operating Hours</h4>
+              <p class="text-muted">Monday – Friday: 10:00 – 19:00<br>Saturday: 10:00 – 17:00<br>Sunday: By appointment only</p>
+            </div>
+
+            <div class="boutique-info-card reveal">
+              <div class="boutique-info-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
+                </svg>
+              </div>
+              <h4>Contact</h4>
+              <p class="text-muted">+41 22 310 88 88<br>boutique@kronos.ch</p>
+            </div>
+
+            <div class="boutique-info-image reveal">
+              <img src="images/watch_04.png" alt="KRONOS Timepiece" />
+            </div>
+          </div>
+
+        </div><!-- .boutique-grid -->
+
+        <div class="spacer-lg"></div>
+        <div class="border-line"></div>
+        <div class="spacer-lg"></div>
+
+        <!-- ========== GLOBAL BOUTIQUE LOCATIONS ========== -->
+        <div class="boutique-locations">
+          <div class="text-sm text-muted" style="letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.8rem;text-align:center;">WORLDWIDE PRESENCE</div>
+          <h2 style="text-align:center;margin-bottom:3rem;">Our <span class="italic">Boutiques</span></h2>
+
+          <div class="boutique-locations-grid">
+
+            <div class="boutique-location-card reveal">
+              <div class="boutique-location-city">Geneva</div>
+              <div class="boutique-location-label">FLAGSHIP</div>
+              <p class="text-muted">12 Rue du Rhône<br>1204 Geneva, Switzerland</p>
+              <div class="spacer-xs"></div>
+              <a href="#" class="btn-outline" onclick="document.getElementById('appointmentForm').scrollIntoView({behavior:'smooth'}); return false;">BOOK VISIT</a>
+            </div>
+
+            <div class="boutique-location-card reveal">
+              <div class="boutique-location-city">London</div>
+              <div class="boutique-location-label">MAYFAIR</div>
+              <p class="text-muted">27 New Bond Street<br>London W1S 2RR, United Kingdom</p>
+              <div class="spacer-xs"></div>
+              <a href="#" class="btn-outline" onclick="document.getElementById('appointmentForm').scrollIntoView({behavior:'smooth'}); return false;">BOOK VISIT</a>
+            </div>
+
+            <div class="boutique-location-card reveal">
+              <div class="boutique-location-city">Dubai</div>
+              <div class="boutique-location-label">DIFC</div>
+              <p class="text-muted">Gate Avenue, Level 1<br>DIFC, Dubai, UAE</p>
+              <div class="spacer-xs"></div>
+              <a href="#" class="btn-outline" onclick="document.getElementById('appointmentForm').scrollIntoView({behavior:'smooth'}); return false;">BOOK VISIT</a>
+            </div>
+
+          </div>
+        </div><!-- .boutique-locations -->
+
+        <div class="spacer-lg"></div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">KRONOS</div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Explore</div>
+          <div class="footer-links">
+            <a href="heritage.html" class="footer-link">About</a>
+            <a href="collections.html" class="footer-link">Watches</a>
+            <a href="collections.html?filter=new" class="footer-link">New Models</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Customer Care</div>
+          <div class="footer-links">
+            <a href="boutique.html" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Track Order</a>
+            <a href="#" class="footer-link">Returns</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Collections</div>
+          <div class="footer-links">
+            <a href="collections.html?category=chronograph" class="footer-link">Chronograph</a>
+            <a href="collections.html?category=diver" class="footer-link">Diver</a>
+            <a href="collections.html?category=dress" class="footer-link">Dress</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 KRONOS. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- #pageContent -->
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

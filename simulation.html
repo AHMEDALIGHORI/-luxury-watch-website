@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONOS® - Horology Simulation</title>
+  <meta name="description" content="KRONOS mechanical horology simulator. Wind the barrel spring, engage cogs, and adjust escape-wheel beat frequencies." />
+  <meta property="og:title" content="KRONOS® - Horology Simulation" />
+  <meta property="og:description" content="KRONOS mechanical horology simulator. Wind the barrel spring, engage cogs, and adjust escape-wheel beat frequencies." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌚</text></svg>" />
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== PAGE TRANSITION MASK ========== -->
+  <div class="page-transition-mask" id="transitionMask">
+    <div class="page-transition-logo">KRONOS</div>
+  </div>
+
+  <!-- ========== CUSTOM CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ========== SCROLL PROGRESS BAR ========== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ========== FILM GRAIN OVERLAY ========== -->
+  <div class="film-grain" id="filmGrain"></div>
+
+  <!-- ========== INTRO LOADER WITH COUNTER ========== -->
+  <div class="intro-loader" id="introLoader">
+    <div class="intro-logo" id="introLogo">KRONOS</div>
+    <div class="intro-counter" id="introCounter">0</div>
+    <div class="intro-progress">
+      <div class="intro-progress-bar" id="introProgressBar"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" id="navbar">
+    <a href="index.html" class="logo-text">KRONOS</a>
+    <div class="nav-links" id="navLinks">
+      <a href="collections.html" class="nav-link hide-tablet">Collections</a>
+      <a href="configurator.html" class="nav-link hide-tablet">Customizer</a>
+      <a href="simulation.html" class="nav-link hide-tablet">Simulation</a>
+      <a href="heritage.html" class="nav-link hide-tablet">Heritage</a>
+      <a href="boutique.html" class="nav-link">Boutique</a>
+      <a href="journal.html" class="nav-link">Journal</a>
+    </div>
+    <div class="nav-right">
+      <!-- ========== AUDIO TOGGLE HUD ========== -->
+      <div class="audio-hud" id="audioToggle" title="Toggle Mechanical ticking sound">
+        <div class="audio-bars">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+        <div class="audio-label">SOUND</div>
+      </div>
+      <a href="collections.html" class="btn-shop" id="btnShop">
+        <div class="btn-fill"></div>
+        <span>SHOP NOW</span>
+      </a>
+      <div class="menu-toggle" id="menuToggle">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== MOBILE FULL-SCREEN NAV ========== -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-links">
+        <a href="collections.html" class="mobile-nav-link" data-index="1">Collections</a>
+        <a href="configurator.html" class="mobile-nav-link" data-index="2">Customizer</a>
+        <a href="simulation.html" class="mobile-nav-link" data-index="3">Simulation</a>
+        <a href="heritage.html" class="mobile-nav-link" data-index="4">Heritage</a>
+        <a href="boutique.html" class="mobile-nav-link" data-index="5">Boutique</a>
+        <a href="journal.html" class="mobile-nav-link" data-index="6">Journal</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="collections.html" class="mobile-nav-btn btn-shop">
+          <div class="btn-fill"></div>
+          <span>SHOP NOW</span>
+        </a>
+        <div class="mobile-nav-social">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MENU OVERLAY ========== -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ========== PAGE CONTENT WRAPPER FOR AJAX TRANSITIONS ========== -->
+  <div id="pageContent">
+
+  <!-- ========== SIMULATION MAIN ========== -->
+  <main class="section-simulation">
+    <div class="pad-side">
+      <div class="container">
+        
+        <div class="catalog-header reveal">
+          <div class="text-sm text-muted" style="letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.8rem;">CALIBER SANDBOX</div>
+          <h1>Mechanical <span class="italic">Simulation</span></h1>
+        </div>
+
+        <!-- Gear Assembly Interactive Canvas Stage -->
+        <div class="simulation-stage reveal" id="simulationStage">
+          <svg viewBox="0 0 500 500" class="simulation-svg" id="gearAssembly">
+            
+            <!-- Background base plate -->
+            <circle cx="250" cy="250" r="230" fill="#151515" stroke="rgba(201, 169, 110, 0.15)" stroke-width="4" />
+            <circle cx="250" cy="250" r="215" fill="none" stroke="rgba(255, 255, 255, 0.03)" stroke-width="1" />
+
+            <!-- 1. Large Mainspring Barrel Gear (Winds Spring) -->
+            <g id="gearBarrel" transform-origin="150 150">
+              <circle cx="150" cy="150" r="85" fill="#202020" stroke="#c9a96e" stroke-width="3" stroke-dasharray="14 8" />
+              <circle cx="150" cy="150" r="60" fill="none" stroke="rgba(255, 255, 255, 0.05)" stroke-width="2" />
+              <!-- Spiral spring coils inside -->
+              <path d="M150 150 Q160 160 170 150 T130 150 T180 150 T120 150" fill="none" stroke="#b87333" stroke-width="2.5" opacity="0.6" />
+              <circle cx="150" cy="150" r="10" fill="#111" />
+            </g>
+
+            <!-- 2. Center Gear (Driven by Barrel) -->
+            <g id="gearCenter" transform-origin="240 220">
+              <circle cx="240" cy="220" r="50" fill="#1a1a1a" stroke="#ffffff" stroke-width="2" stroke-dasharray="8 6" opacity="0.85" />
+              <circle cx="240" cy="220" r="8" fill="#111" />
+              <line x1="240" y1="220" x2="240" y2="180" stroke="#c9a96e" stroke-width="2" />
+            </g>
+
+            <!-- 3. Third/Escapement Gear (Star Cog) -->
+            <g id="gearEscape" transform-origin="330 260">
+              <circle cx="330" cy="260" r="35" fill="none" stroke="#c9a96e" stroke-width="2.5" stroke-dasharray="5 12" />
+              <!-- Pointy star teeth -->
+              <g stroke="#c9a96e" stroke-width="2.5">
+                <line x1="330" y1="225" x2="335" y2="230" />
+                <line x1="330" y1="295" x2="325" y2="290" />
+                <line x1="295" y1="260" x2="300" y2="265" />
+                <line x1="365" y1="260" x2="360" y2="255" />
+              </g>
+              <circle cx="330" cy="260" r="6" fill="#111" />
+            </g>
+
+            <!-- 4. Pallet Fork Lever (Oscillates Back and Forth) -->
+            <g id="palletFork" transform-origin="310 320">
+              <line x1="310" y1="320" x2="330" y2="280" stroke="#b87333" stroke-width="3" />
+              <!-- Jeweled pallet stones -->
+              <circle cx="330" cy="280" r="5" fill="#ff3b30" />
+              <circle cx="305" cy="290" r="4" fill="#ff3b30" />
+              <line x1="310" y1="320" x2="295" y2="350" stroke="#b87333" stroke-width="3" />
+              <circle cx="310" cy="320" r="6" fill="#111" />
+            </g>
+
+            <!-- 5. Large Balance Wheel & Hairspring (Primary Regulator) -->
+            <g id="balanceWheel" transform-origin="250 370">
+              <!-- Oscillating weights -->
+              <circle cx="250" cy="370" r="75" fill="none" stroke="#e2c992" stroke-width="4.5" />
+              <line x1="175" y1="370" x2="325" y2="370" stroke="#e2c992" stroke-width="3" />
+              <line x1="250" y1="295" x2="250" y2="445" stroke="#e2c992" stroke-width="3" />
+              <!-- Hairspring coil -->
+              <path d="M250 370 A10 10 0 1 0 260 375 A20 20 0 1 0 240 385 A30 30 0 1 0 270 395" fill="none" stroke="#a8a8a8" stroke-width="1.8" opacity="0.8" />
+              <circle cx="250" cy="370" r="8" fill="#111" />
+            </g>
+
+            <!-- Textures & Shadows -->
+            <circle cx="250" cy="250" r="230" fill="none" stroke="rgba(201,169,110,0.05)" stroke-width="12" />
+          </svg>
+        </div>
+
+        <!-- Simulator Controllers Panel -->
+        <div class="sim-controls reveal">
+          
+          <div class="sim-control-row">
+            <span class="sim-slider-label">Mainspring Tension</span>
+            <input type="range" min="0" max="100" value="65" class="sim-slider" id="winderSlider" />
+          </div>
+
+          <div class="sim-control-row">
+            <span class="sim-slider-label">Beat Frequency</span>
+            <div class="config-choices" style="gap: 0.5rem;" id="freqGroup">
+              <button class="config-choice" data-freq="2.5" data-desc="18,000 VPH (Vintage beat)">2.5 Hz</button>
+              <button class="config-choice active" data-freq="4" data-desc="28,800 VPH (Swiss Standard)">4.0 Hz</button>
+              <button class="config-choice" data-freq="5" data-desc="36,000 VPH (El Primero High-Beat)">5.0 Hz</button>
+            </div>
+          </div>
+
+          <div class="sim-control-row">
+            <span class="sim-slider-label">Complications</span>
+            <div class="sim-buttons">
+              <button class="btn-outline sim-btn" id="btnChronograph">
+                <div class="btn-fill"></div>
+                <span id="chronoBtnText">ENGAGE CHRONOGRAPH</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="text-align: center; margin-top: 1rem;">
+            <p class="text-sm text-muted" id="simDesc">Ticking Frequency: 28,800 VPH (Swiss Standard balance wheel oscillations).</p>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">KRONOS</div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Explore</div>
+          <div class="footer-links">
+            <a href="heritage.html" class="footer-link">About</a>
+            <a href="collections.html" class="footer-link">Watches</a>
+            <a href="collections.html?filter=new" class="footer-link">New Models</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Customer Care</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Track Order</a>
+            <a href="#" class="footer-link">Returns</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Collections</div>
+          <div class="footer-links">
+            <a href="collections.html?category=chronograph" class="footer-link">Chronograph</a>
+            <a href="collections.html?category=diver" class="footer-link">Diver</a>
+            <a href="collections.html?category=dress" class="footer-link">Dress</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 KRONOS. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- #pageContent -->
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

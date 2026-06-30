@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONOS® - Watch Configurator</title>
+  <meta name="description" content="Custom KRONOS configurator. Build your custom watch: select bezels, dials, straps, and try it on in virtual AR." />
+  <meta property="og:title" content="KRONOS® - Watch Configurator" />
+  <meta property="og:description" content="Custom KRONOS configurator. Build your custom watch: select bezels, dials, straps, and try it on in virtual AR." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌚</text></svg>" />
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== PAGE TRANSITION MASK ========== -->
+  <div class="page-transition-mask" id="transitionMask">
+    <div class="page-transition-logo">KRONOS</div>
+  </div>
+
+  <!-- ========== CUSTOM CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ========== SCROLL PROGRESS BAR ========== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ========== FILM GRAIN OVERLAY ========== -->
+  <div class="film-grain" id="filmGrain"></div>
+
+  <!-- ========== INTRO LOADER WITH COUNTER ========== -->
+  <div class="intro-loader" id="introLoader">
+    <div class="intro-logo" id="introLogo">KRONOS</div>
+    <div class="intro-counter" id="introCounter">0</div>
+    <div class="intro-progress">
+      <div class="intro-progress-bar" id="introProgressBar"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" id="navbar">
+    <a href="index.html" class="logo-text">KRONOS</a>
+    <div class="nav-links" id="navLinks">
+      <a href="collections.html" class="nav-link hide-tablet">Collections</a>
+      <a href="configurator.html" class="nav-link hide-tablet">Customizer</a>
+      <a href="simulation.html" class="nav-link hide-tablet">Simulation</a>
+      <a href="heritage.html" class="nav-link hide-tablet">Heritage</a>
+      <a href="boutique.html" class="nav-link">Boutique</a>
+      <a href="journal.html" class="nav-link">Journal</a>
+    </div>
+    <div class="nav-right">
+      <!-- ========== AUDIO TOGGLE HUD ========== -->
+      <div class="audio-hud" id="audioToggle" title="Toggle Mechanical ticking sound">
+        <div class="audio-bars">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+        <div class="audio-label">SOUND</div>
+      </div>
+      <a href="collections.html" class="btn-shop" id="btnShop">
+        <div class="btn-fill"></div>
+        <span>SHOP NOW</span>
+      </a>
+      <div class="menu-toggle" id="menuToggle">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== MOBILE FULL-SCREEN NAV ========== -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-links">
+        <a href="collections.html" class="mobile-nav-link" data-index="1">Collections</a>
+        <a href="configurator.html" class="mobile-nav-link" data-index="2">Customizer</a>
+        <a href="simulation.html" class="mobile-nav-link" data-index="3">Simulation</a>
+        <a href="heritage.html" class="mobile-nav-link" data-index="4">Heritage</a>
+        <a href="boutique.html" class="mobile-nav-link" data-index="5">Boutique</a>
+        <a href="journal.html" class="mobile-nav-link" data-index="6">Journal</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="collections.html" class="mobile-nav-btn btn-shop">
+          <div class="btn-fill"></div>
+          <span>SHOP NOW</span>
+        </a>
+        <div class="mobile-nav-social">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MENU OVERLAY ========== -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ========== PAGE CONTENT WRAPPER FOR AJAX TRANSITIONS ========== -->
+  <div id="pageContent">
+
+  <!-- ========== CONFIGURATOR MAIN ========== -->
+  <main class="section-configurator">
+    <div class="pad-side">
+      <div class="container">
+        
+        <div class="configurator-grid">
+          
+          <!-- Watch composite stage -->
+          <div class="configurator-viewer reveal">
+            
+            <!-- AR Toggle -->
+            <button class="btn-outline ar-toggle-btn" id="arToggleBtn">
+              <div class="btn-fill"></div>
+              <span id="arBtnText">ACTIVATE TRY-ON</span>
+            </button>
+
+            <!-- Vector watch composites -->
+            <div class="configurator-watch-stage" id="configuratorWatchStage">
+              <svg viewBox="0 0 400 400" class="configurator-watch-svg" xmlns="http://www.w3.org/2000/svg">
+                <!-- Straps (Dynamic Fill) -->
+                <g id="svgStrapGroup">
+                  <path id="svgStrapTop" d="M160 50 L240 50 L220 150 L180 150 Z" fill="#5c4033" stroke="#222" stroke-width="2" />
+                  <path id="svgStrapBottom" d="M180 250 L220 250 L240 350 L160 350 Z" fill="#5c4033" stroke="#222" stroke-width="2" />
+                </g>
+                <!-- Bezel (Dynamic Gradient Fill) -->
+                <circle cx="200" cy="200" r="70" id="svgBezel" fill="url(#roseGoldBezel)" stroke="#111" stroke-width="3" />
+                <!-- Dial (Dynamic Fill) -->
+                <circle cx="200" cy="200" r="58" id="svgDial" fill="#0c1e3a" />
+                <!-- Inner bezel indicators -->
+                <g stroke="#ffffff" stroke-width="1.5" opacity="0.3">
+                  <line x1="200" y1="145" x2="200" y2="152" />
+                  <line x1="200" y1="248" x2="200" y2="255" />
+                  <line x1="145" y1="200" x2="152" y2="200" />
+                  <line x1="248" y1="200" x2="255" y2="200" />
+                </g>
+                <!-- Dial Hands (Clock ticking rotation) -->
+                <g stroke-linecap="round">
+                  <line x1="200" y1="200" x2="200" y2="170" id="hourHand" stroke="#ffffff" stroke-width="4.5" />
+                  <line x1="200" y1="200" x2="200" y2="155" id="minuteHand" stroke="#ffffff" stroke-width="3.5" />
+                  <line x1="200" y1="200" x2="200" y2="148" id="secondHand" stroke="#c9a96e" stroke-width="1.5" />
+                </g>
+                <circle cx="200" cy="200" r="5" fill="#c9a96e" />
+
+                <!-- Definition gradients -->
+                <defs>
+                  <linearGradient id="roseGoldBezel" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f0c294" />
+                    <stop offset="50%" stop-color="#b87333" />
+                    <stop offset="100%" stop-color="#e3a776" />
+                  </linearGradient>
+                  <linearGradient id="platinumBezel" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#f5f5f5" />
+                    <stop offset="50%" stop-color="#a8a8a8" />
+                    <stop offset="100%" stop-color="#e0e0e0" />
+                  </linearGradient>
+                  <linearGradient id="titaniumBezel" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#808080" />
+                    <stop offset="50%" stop-color="#4d4d4d" />
+                    <stop offset="100%" stop-color="#666666" />
+                  </linearGradient>
+                </defs>
+              </svg>
+            </div>
+
+            <!-- Webcam AR container -->
+            <div class="ar-video-container" id="arVideoContainer">
+              <video id="webcamStream" autoplay playsinline></video>
+              <div class="ar-wrist-overlay"></div>
+            </div>
+
+          </div>
+
+          <!-- Options Sidebar -->
+          <div class="configurator-options reveal">
+            
+            <div class="options-header">
+              <div class="text-sm text-muted" style="letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.5rem;">KRONOS WORKSPACE</div>
+              <h2>Build your <span class="italic">Timepiece</span></h2>
+            </div>
+
+            <!-- Bezel choice -->
+            <div class="config-option-section">
+              <div class="config-group-title">Bezel Metal</div>
+              <div class="config-choices">
+                <button class="config-choice active" data-type="bezel" data-value="rose-gold" data-price="4500">Rose Gold</button>
+                <button class="config-choice" data-type="bezel" data-value="platinum" data-price="6200">Platinum</button>
+                <button class="config-choice" data-type="bezel" data-value="titanium" data-price="3500">Titanium</button>
+              </div>
+            </div>
+
+            <!-- Dial choice -->
+            <div class="config-option-section">
+              <div class="config-group-title">Dial Color</div>
+              <div class="config-choices">
+                <button class="config-choice active" data-type="dial" data-value="#0c1e3a" data-price="0">Royal Navy</button>
+                <button class="config-choice" data-type="dial" data-value="#073a24" data-price="0">Emerald Green</button>
+                <button class="config-choice" data-type="dial" data-value="#111111" data-price="0">Obsidian Black</button>
+              </div>
+            </div>
+
+            <!-- Strap choice -->
+            <div class="config-option-section">
+              <div class="config-group-title">Strap Material</div>
+              <div class="config-choices">
+                <button class="config-choice active" data-type="strap" data-value="leather" data-price="1200">Brown Leather</button>
+                <button class="config-choice" data-type="strap" data-value="steel" data-price="2500">Stainless Steel</button>
+                <button class="config-choice" data-type="strap" data-value="rubber" data-price="800">Black Rubber</button>
+              </div>
+            </div>
+
+            <!-- Pricing Summary -->
+            <div class="configurator-summary">
+              <div class="summary-row">
+                <span>Base Caliber (Movement)</span>
+                <span>$6,800</span>
+              </div>
+              <div class="summary-row">
+                <span>Selected Metal</span>
+                <span id="summaryBezelCost">$4,500</span>
+              </div>
+              <div class="summary-row">
+                <span>Selected Strap</span>
+                <span id="summaryStrapCost">$1,200</span>
+              </div>
+              <div class="summary-row total">
+                <span>Total Cost</span>
+                <span id="summaryTotalCost">$12,500</span>
+              </div>
+              <div class="spacer-xs"></div>
+              <button class="newsletter-btn" style="width:100%;justify-content:center;font-size:0.75rem;padding:1.1rem 0;" onclick="alert('Configuration saved. An horologist will contact you shortly.');">
+                <span>INQUIRE ABOUT THIS BUILD</span>
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">KRONOS</div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Explore</div>
+          <div class="footer-links">
+            <a href="heritage.html" class="footer-link">About</a>
+            <a href="collections.html" class="footer-link">Watches</a>
+            <a href="collections.html?filter=new" class="footer-link">New Models</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Customer Care</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Track Order</a>
+            <a href="#" class="footer-link">Returns</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Collections</div>
+          <div class="footer-links">
+            <a href="collections.html?category=chronograph" class="footer-link">Chronograph</a>
+            <a href="collections.html?category=diver" class="footer-link">Diver</a>
+            <a href="collections.html?category=dress" class="footer-link">Dress</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 KRONOS. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- #pageContent -->
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

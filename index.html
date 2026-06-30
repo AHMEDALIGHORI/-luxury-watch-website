@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONOS® - Luxury Men's Watches</title>
+  <meta name="description" content="KRONOS - Discover the finest luxury men's watches. Precision engineering meets timeless elegance in every timepiece." />
+  <meta property="og:title" content="KRONOS® - Luxury Men's Watches" />
+  <meta property="og:description" content="Discover the finest luxury men's watches. Precision engineering meets timeless elegance." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌚</text></svg>" />
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== PAGE TRANSITION MASK ========== -->
+  <div class="page-transition-mask" id="transitionMask">
+    <div class="page-transition-logo">KRONOS</div>
+  </div>
+
+  <!-- ========== CUSTOM CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ========== SCROLL PROGRESS BAR ========== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ========== FILM GRAIN OVERLAY ========== -->
+  <div class="film-grain" id="filmGrain"></div>
+
+  <!-- ========== INTRO LOADER WITH COUNTER ========== -->
+  <div class="intro-loader" id="introLoader">
+    <div class="intro-logo" id="introLogo">KRONOS</div>
+    <div class="intro-counter" id="introCounter">0</div>
+    <div class="intro-progress">
+      <div class="intro-progress-bar" id="introProgressBar"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" id="navbar">
+    <a href="index.html" class="logo-text">KRONOS</a>
+    <div class="nav-links" id="navLinks">
+      <a href="collections.html" class="nav-link hide-tablet">Collections</a>
+      <a href="configurator.html" class="nav-link hide-tablet">Customizer</a>
+      <a href="simulation.html" class="nav-link hide-tablet">Simulation</a>
+      <a href="heritage.html" class="nav-link hide-tablet">Heritage</a>
+      <a href="boutique.html" class="nav-link">Boutique</a>
+      <a href="journal.html" class="nav-link">Journal</a>
+    </div>
+    <div class="nav-right">
+      <!-- ========== WISHLIST TOGGLE ========== -->
+      <div class="wishlist-nav-btn" id="wishlistNavBtn" title="My Wishlist">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <span class="wishlist-count" id="wishlistCount">0</span>
+      </div>
+      <!-- ========== AUDIO TOGGLE HUD ========== -->
+      <div class="audio-hud" id="audioToggle" title="Toggle Mechanical ticking sound">
+        <div class="audio-bars">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+        <div class="audio-label">SOUND</div>
+      </div>
+      <a href="collections.html" class="btn-shop" id="btnShop">
+        <div class="btn-fill"></div>
+        <span>SHOP NOW</span>
+      </a>
+      <div class="menu-toggle" id="menuToggle">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== MOBILE FULL-SCREEN NAV ========== -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-links">
+        <a href="collections.html" class="mobile-nav-link" data-index="1">Collections</a>
+        <a href="configurator.html" class="mobile-nav-link" data-index="2">Customizer</a>
+        <a href="simulation.html" class="mobile-nav-link" data-index="3">Simulation</a>
+        <a href="heritage.html" class="mobile-nav-link" data-index="4">Heritage</a>
+        <a href="boutique.html" class="mobile-nav-link" data-index="5">Boutique</a>
+        <a href="journal.html" class="mobile-nav-link" data-index="6">Journal</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="collections.html" class="mobile-nav-btn btn-shop">
+          <div class="btn-fill"></div>
+          <span>SHOP NOW</span>
+        </a>
+        <div class="mobile-nav-social">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MENU OVERLAY ========== -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ========== SIDE PANEL ========== -->
+  <div class="side-panel-wrapper" id="sidePanel">
+    <div class="side-panel">
+      <div class="panel-close" id="panelClose">
+        <svg viewBox="0 0 24 24" fill="none"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+      </div>
+      <div class="panel-content">
+        <h2><span class="italic">Precision</span> Movement</h2>
+        <div class="spacer-xs"></div>
+        <p>Our watches feature precise, reliable movements with advanced complications including automatic calibers, chronograph functions, and tourbillon mechanisms for optimal performance.</p>
+        <div class="panel-features">
+          <div class="panel-feature">
+            <div class="num">01</div>
+            <div class="label">Swiss Movement</div>
+          </div>
+          <div class="panel-feature">
+            <div class="num">02</div>
+            <div class="label">72-Hour Reserve</div>
+          </div>
+          <div class="panel-feature">
+            <div class="num">03</div>
+            <div class="label">Chronometer Certified</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-media">
+        <img src="images/feature_01.jpg" alt="Watch detail" />
+      </div>
+      <div class="panel-ticker">
+        <div class="super-text blend">Precision movement — Precision movement — Precision movement — </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE CONTENT WRAPPER FOR AJAX TRANSITIONS ========== -->
+  <div id="pageContent">
+
+  <!-- ========== HERO SECTION ========== -->
+  <header class="hero" id="hero">
+    <div class="hero-title" id="heroTitle">
+      <h1>Elegance and Precision<br>The Finest <span class="italic">Luxury Watches</span></h1>
+    </div>
+
+    <div class="slider-cover"></div>
+
+    <div class="hero-slider" id="heroSlider">
+      <!-- Slide 1 -->
+      <div class="hero-slide active" data-index="0">
+        <div class="slide-inner">
+          <div class="hero-brand-text">
+            <div class="super-text">KRONOS — KRONOS — KRONOS — KRONOS — KRONOS —</div>
+          </div>
+          <div class="hero-bg-wrapper">
+            <img src="images/hero_bg_01.jpg" alt="" class="hero-bg" />
+          </div>
+          <div class="hero-watch-area">
+            <div class="hero-watch-card parallax-slow">
+              <div class="hero-watch-bg bg-navy"></div>
+              <img src="images/watch_01.png" alt="Chronograph Elite" class="hero-watch-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 2 -->
+      <div class="hero-slide" data-index="1">
+        <div class="slide-inner">
+          <div class="hero-brand-text">
+            <div class="super-text">KRONOS — KRONOS — KRONOS — KRONOS — KRONOS —</div>
+          </div>
+          <div class="hero-bg-wrapper">
+            <img src="images/hero_bg_02.jpg" alt="" class="hero-bg" />
+          </div>
+          <div class="hero-watch-area">
+            <div class="hero-watch-card parallax-slow">
+              <div class="hero-watch-bg bg-gold"></div>
+              <img src="images/watch_02.png" alt="Heritage Rose" class="hero-watch-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Slide 3 -->
+      <div class="hero-slide" data-index="2">
+        <div class="slide-inner">
+          <div class="hero-brand-text">
+            <div class="super-text">KRONOS — KRONOS — KRONOS — KRONOS — KRONOS —</div>
+          </div>
+          <div class="hero-bg-wrapper">
+            <img src="images/hero_bg_03.jpg" alt="" class="hero-bg" />
+          </div>
+          <div class="hero-watch-area">
+            <div class="hero-watch-card parallax-slow">
+              <div class="hero-watch-bg bg-dark"></div>
+              <img src="images/watch_03.png" alt="Diver Titan" class="hero-watch-img" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-dots" id="heroDots">
+      <div class="hero-dot active" data-slide="0"></div>
+      <div class="hero-dot" data-slide="1"></div>
+      <div class="hero-dot" data-slide="2"></div>
+    </div>
+  </header>
+
+  <!-- ========== PRODUCTS SECTION ========== -->
+  <section class="section section-products" id="productsSection">
+    <div class="spacer-lg"></div>
+    <div class="pad-side">
+      <div class="container section-header reveal">
+        <h2>The Most Coveted<br><span class="italic">Men's Timepieces</span></h2>
+        <div class="btn-outline">
+          <div class="btn-fill"></div>
+          <span>VIEW ALL</span>
+        </div>
+      </div>
+    </div>
+    <div class="spacer-md"></div>
+
+    <div class="products-track" id="productsTrack">
+      <div class="product-card" data-delay="0">
+        <div class="card-image">
+          <div class="card-bg bg-navy"></div>
+          <img src="images/watch_01.png" alt="Chronograph Elite" />
+        </div>
+        <div class="card-info">
+          <h3>Chronograph Elite</h3>
+          <div class="price text-muted">$12,500</div>
+        </div>
+      </div>
+      <div class="product-card" data-delay="100">
+        <div class="card-image">
+          <div class="card-bg bg-charcoal"></div>
+          <img src="images/watch_02.png" alt="Heritage Rose" />
+        </div>
+        <div class="card-info">
+          <h3>Heritage Rose</h3>
+          <div class="price text-muted">$18,900</div>
+        </div>
+      </div>
+      <div class="product-card" data-delay="200">
+        <div class="card-image">
+          <div class="card-bg bg-dark-blue"></div>
+          <img src="images/watch_03.png" alt="Diver Titan" />
+        </div>
+        <div class="card-info">
+          <h3>Diver Titan</h3>
+          <div class="price text-muted">$9,800</div>
+        </div>
+      </div>
+      <div class="product-card" data-delay="300">
+        <div class="card-image">
+          <div class="card-bg bg-deep"></div>
+          <img src="images/watch_04.png" alt="Skeleton Grand" />
+        </div>
+        <div class="card-info">
+          <h3>Skeleton Grand</h3>
+          <div class="price text-muted">$24,500</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spacer-lg"></div>
+
+    <!-- ========== FEATURES SECTION ========== -->
+    <div class="pad-side">
+      <div class="container">
+        <div class="border-line"></div>
+        <div class="spacer-lg"></div>
+        <div class="reveal">
+          <h2>Experience the Finest Features<br>in Our <span class="italic">Luxury Timepieces</span></h2>
+          <div class="spacer-sm"></div>
+          <a href="#" class="link-underline">SHOP NOW</a>
+        </div>
+
+        <div class="spacer-md"></div>
+
+        <div class="features-grid">
+          <!-- Feature 1: Precision Movement -->
+          <div class="feature-item reveal" id="featurePrecision">
+            <div class="feature-image size-tall">
+              <div class="plus-icon">
+                <div class="p-line"></div>
+                <div class="p-line-h"></div>
+              </div>
+              <div class="img-reveal img-clip">
+                <img src="images/feature_01.jpg" alt="Precision movement" />
+              </div>
+            </div>
+            <div class="feature-content">
+              <h3><span class="italic">Precision</span> Movement</h3>
+              <p>Our watches offer precise, reliable movements with advanced features like automatic or chronograph functions for optimal performance.</p>
+            </div>
+          </div>
+
+          <!-- Feature 2: High-quality materials -->
+          <div class="feature-item reveal" id="featureMaterials">
+            <div class="feature-image size-square">
+              <div class="plus-icon">
+                <div class="p-line"></div>
+                <div class="p-line-h"></div>
+              </div>
+              <div class="img-reveal img-clip">
+                <img src="images/watch_01.png" alt="High-quality materials" style="object-fit: contain; padding: 2rem;" />
+              </div>
+              <div style="position:absolute;inset:0;z-index:0;">
+                <img src="images/feature_02.jpg" alt="" style="width:100%;height:100%;object-fit:cover;" />
+              </div>
+            </div>
+            <div class="feature-content">
+              <h3>High-Quality <span class="italic">Materials</span></h3>
+              <p>Crafted from premium materials like titanium, stainless steel, sapphire crystal, and fine leather for unmatched durability and style.</p>
+            </div>
+          </div>
+
+          <!-- Feature 3: Attention to detail (full width) -->
+          <div class="feature-item feature-full reveal" id="featureDetail">
+            <div class="feature-image size-wide">
+              <div class="plus-icon">
+                <div class="p-line"></div>
+                <div class="p-line-h"></div>
+              </div>
+              <div class="img-reveal img-clip">
+                <img src="images/detail_01.jpg" alt="Attention to detail" />
+              </div>
+            </div>
+            <div class="feature-content">
+              <h3>Attention to <span class="italic">Detail</span></h3>
+              <p>Each watch features intricate design elements and finishes for a unique look — from hand-engraved patterns to precious gemstone settings.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="spacer-lg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== TICKER ========== -->
+  <div class="ticker-section">
+    <div class="ticker-track">
+      <div class="super-text blend">Shop Our Selection — Shop Our Selection — Shop Our Selection — Shop Our Selection — </div>
+      <div class="super-text blend">Shop Our Selection — Shop Our Selection — Shop Our Selection — Shop Our Selection — </div>
+    </div>
+  </div>
+
+  <!-- ========== CATEGORIES STICKY SCROLL (Desktop) ========== -->
+  <div class="sticky-section" id="stickySection">
+    <div class="sticky-inner">
+      <div class="sticky-left">
+        <h2>Shop Our Selection of <span class="italic">Men's Watches</span> by Category</h2>
+        <div>
+          <div class="category-item active" data-cat="0">
+            <h3 class="heading-medium">Haute Horlogerie</h3>
+            <div class="category-meta">
+              <div class="category-num">01</div>
+              <div class="border-line light" style="flex:1;"></div>
+              <div class="category-desc text-muted">The highest standard in watchmaking.</div>
+            </div>
+          </div>
+          <div class="category-item" data-cat="1">
+            <h3 class="heading-medium">Chronograph Collection</h3>
+            <div class="category-meta">
+              <div class="category-num">02</div>
+              <div class="border-line light" style="flex:1;"></div>
+              <div class="category-desc text-muted">Precision timing for the modern gentleman.</div>
+            </div>
+          </div>
+          <div class="category-item" data-cat="2">
+            <h3 class="heading-medium">Diver's Watches</h3>
+            <div class="category-meta">
+              <div class="category-num">03</div>
+              <div class="border-line light" style="flex:1;"></div>
+              <div class="category-desc text-muted">Built to conquer the depths with style.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sticky-right">
+        <div class="category-image bg-3 active" data-cat="0">
+          <div class="watch-img-wrapper">
+            <img src="images/watch_03.png" alt="Haute Horlogerie" />
+          </div>
+        </div>
+        <div class="category-image bg-2" data-cat="1">
+          <div class="watch-img-wrapper">
+            <img src="images/watch_02.png" alt="Chronograph Collection" />
+          </div>
+        </div>
+        <div class="category-image bg-1" data-cat="2">
+          <div class="watch-img-wrapper">
+            <img src="images/watch_01.png" alt="Diver's Watches" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== CATEGORIES MOBILE ========== -->
+  <div class="mobile-categories">
+    <h2 style="margin-bottom:3rem;">Shop Our Selection of <span class="italic">Men's Watches</span> by Category</h2>
+
+    <div class="mobile-cat-item">
+      <div class="mobile-cat-image bg-3" style="background: linear-gradient(180deg, #1a2030, #0a0e18);">
+        <img src="images/watch_03.png" alt="Haute Horlogerie" />
+      </div>
+      <h3 class="heading-medium">Haute Horlogerie</h3>
+      <div class="category-meta" style="margin-top:0.5rem;">
+        <div class="category-num">01</div>
+        <div class="border-line light" style="flex:1;"></div>
+        <div class="category-desc text-muted">The highest standard in watchmaking.</div>
+      </div>
+    </div>
+
+    <div class="mobile-cat-item">
+      <div class="mobile-cat-image" style="background: linear-gradient(180deg, #3d2b1a, #1a1208);">
+        <img src="images/watch_02.png" alt="Chronograph Collection" />
+      </div>
+      <h3 class="heading-medium">Chronograph Collection</h3>
+      <div class="category-meta" style="margin-top:0.5rem;">
+        <div class="category-num">02</div>
+        <div class="border-line light" style="flex:1;"></div>
+        <div class="category-desc text-muted">Precision timing for the modern gentleman.</div>
+      </div>
+    </div>
+
+    <div class="mobile-cat-item">
+      <div class="mobile-cat-image" style="background: linear-gradient(180deg, #0c1e3a, #050d1a);">
+        <img src="images/watch_01.png" alt="Diver's Watches" />
+      </div>
+      <h3 class="heading-medium">Diver's Watches</h3>
+      <div class="category-meta" style="margin-top:0.5rem;">
+        <div class="category-num">03</div>
+        <div class="border-line light" style="flex:1;"></div>
+        <div class="category-desc text-muted">Built to conquer the depths with style.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== TESTIMONIAL CAROUSEL ========== -->
+  <section class="section section-testimonial" id="testimonialSection" style="background-image: url('images/hero_bg_03.jpg');">
+    <div class="testimonial-inner pad-side">
+      <div class="container">
+        <div class="spacer-lg"></div>
+        <div class="reveal">
+          <div class="testimonial-carousel" id="testimonialCarousel">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-slide active" data-testimonial="0">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">
+                "I purchased my new watch from KRONOS and I couldn't be happier with my <span class="italic">experience</span>. The craftsmanship was <span class="italic">exceptional</span>, with every detail reflecting the brand's commitment to perfection and masculine elegance."
+              </div>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">JH</div>
+                <div>
+                  <h4 class="heading-medium">James Harrison</h4>
+                  <div class="role text-muted">CEO of Harrison & Co.</div>
+                </div>
+                <div class="testimonial-verified">✓ Verified Buyer</div>
+              </div>
+            </div>
+            <!-- Testimonial 2 -->
+            <div class="testimonial-slide" data-testimonial="1">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">
+                "The Skeleton Grand is a true <span class="italic">masterpiece</span>. Watching the exposed movement through the sapphire crystal is mesmerizing. KRONOS has created something that rivals watches costing three times the price."
+              </div>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">MR</div>
+                <div>
+                  <h4 class="heading-medium">Marcus Reynolds</h4>
+                  <div class="role text-muted">Watch Collector & Enthusiast</div>
+                </div>
+                <div class="testimonial-verified">✓ Verified Buyer</div>
+              </div>
+            </div>
+            <!-- Testimonial 3 -->
+            <div class="testimonial-slide" data-testimonial="2">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">
+                "From the moment I walked into the Geneva boutique, I knew KRONOS was <span class="italic">different</span>. The attention to detail, the weight of the titanium case, the sweeping second hand — pure <span class="italic">horological art</span>."
+              </div>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">AV</div>
+                <div>
+                  <h4 class="heading-medium">Alexander Volkov</h4>
+                  <div class="role text-muted">Private Equity Director</div>
+                </div>
+                <div class="testimonial-verified">✓ Verified Buyer</div>
+              </div>
+            </div>
+            <!-- Testimonial 4 -->
+            <div class="testimonial-slide" data-testimonial="3">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">
+                "My Diver Titan has accompanied me on expeditions across the globe. From the coral reefs of the Maldives to the boardrooms of Tokyo — this watch is as <span class="italic">versatile</span> as it is <span class="italic">beautiful</span>."
+              </div>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">DK</div>
+                <div>
+                  <h4 class="heading-medium">David Kim</h4>
+                  <div class="role text-muted">Explorer & Photographer</div>
+                </div>
+                <div class="testimonial-verified">✓ Verified Buyer</div>
+              </div>
+            </div>
+            <!-- Testimonial 5 -->
+            <div class="testimonial-slide" data-testimonial="4">
+              <div class="testimonial-stars">★★★★★</div>
+              <div class="testimonial-quote">
+                "I gifted my husband the Heritage Rose for our anniversary. The engraving service was <span class="italic">flawless</span>, and the packaging felt like unwrapping a piece of <span class="italic">history</span>. Truly unforgettable."
+              </div>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">SL</div>
+                <div>
+                  <h4 class="heading-medium">Sophia Laurent</h4>
+                  <div class="role text-muted">Interior Architect</div>
+                </div>
+                <div class="testimonial-verified">✓ Verified Buyer</div>
+              </div>
+            </div>
+          </div>
+          <!-- Carousel Dots -->
+          <div class="testimonial-dots" id="testimonialDots">
+            <div class="testimonial-dot active" data-slide="0"></div>
+            <div class="testimonial-dot" data-slide="1"></div>
+            <div class="testimonial-dot" data-slide="2"></div>
+            <div class="testimonial-dot" data-slide="3"></div>
+            <div class="testimonial-dot" data-slide="4"></div>
+          </div>
+        </div>
+        <div class="spacer-lg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== ANIMATED STATS COUNTER ========== -->
+  <section class="section section-stats" id="statsSection">
+    <div class="pad-side">
+      <div class="container">
+        <div class="stats-grid" id="statsGrid">
+          <div class="stat-item reveal">
+            <div class="stat-number" data-target="138">0</div>
+            <div class="stat-suffix">+</div>
+            <div class="stat-label">Years of Heritage</div>
+            <div class="stat-glow"></div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item reveal">
+            <div class="stat-number" data-target="300">0</div>
+            <div class="stat-suffix">+</div>
+            <div class="stat-label">Hand-Assembled Parts</div>
+            <div class="stat-glow"></div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item reveal">
+            <div class="stat-number" data-target="45">0</div>
+            <div class="stat-suffix">+</div>
+            <div class="stat-label">Countries Worldwide</div>
+            <div class="stat-glow"></div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item reveal">
+            <div class="stat-number" data-target="28">0</div>
+            <div class="stat-suffix"></div>
+            <div class="stat-label">Master Watchmakers</div>
+            <div class="stat-glow"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA SECTION ========== -->
+  <section class="section section-cta pad-side" id="ctaSection">
+    <div class="container">
+      <div class="spacer-lg"></div>
+      <div class="cta-block reveal-scale" id="ctaBlock">
+        <div class="cta-content">
+          <div class="label text-muted">UPGRADE</div>
+          <h2><span class="italic">Your Timepiece</span> Collection Today</h2>
+          <div class="spacer-xs"></div>
+          <p>Don't miss out on the opportunity to upgrade your timepiece collection today and add a touch of masculine elegance to your everyday look.</p>
+        </div>
+        <div class="cta-image">
+          <img src="images/cta_watch.png" alt="Shop KRONOS watches" />
+          <div class="cta-ticker">
+            <div class="super-text">Shop now — Shop now — Shop now — Shop now — Shop now — </div>
+          </div>
+        </div>
+      </div>
+      <div class="spacer-md"></div>
+    </div>
+  </section>
+
+  <!-- ========== 3D WATCH SHOWCASE ========== -->
+  <section class="section section-showcase" id="showcaseSection">
+    <div class="pad-side">
+      <div class="container">
+        <div class="spacer-lg"></div>
+        <div class="reveal" style="text-align:center;">
+          <div class="text-sm text-muted" style="letter-spacing:0.2em;text-transform:uppercase;">INTERACTIVE</div>
+          <div class="spacer-xs"></div>
+          <h2>Explore the <span class="italic">Masterpiece</span></h2>
+          <div class="spacer-xs"></div>
+          <p class="text-sm text-muted" style="max-width:500px;margin:0 auto;">Move your cursor over the watch to experience every angle of precision engineering.</p>
+        </div>
+        <div class="spacer-md"></div>
+        <div class="showcase-stage" id="showcaseStage">
+          <div class="showcase-glow"></div>
+          <div class="showcase-ring ring-1"></div>
+          <div class="showcase-ring ring-2"></div>
+          <div class="showcase-ring ring-3"></div>
+          <div class="showcase-watch" id="showcaseWatch">
+            <img src="images/watch_01.png" alt="KRONOS Chronograph Elite" />
+          </div>
+          <div class="showcase-label">
+            <div class="showcase-name">Chronograph Elite</div>
+            <div class="showcase-price text-muted">$12,500</div>
+          </div>
+        </div>
+        <div class="spacer-lg"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INSTAGRAM SOCIAL GALLERY ========== -->
+  <section class="section section-instagram" id="instagramSection">
+    <div class="pad-side">
+      <div class="container" style="text-align:center;">
+        <div class="reveal">
+          <div class="text-sm text-muted" style="letter-spacing:0.25em;text-transform:uppercase;">FOLLOW THE CRAFT</div>
+          <div class="spacer-xs"></div>
+          <h2>@KRONOS on <span class="italic">Instagram</span></h2>
+        </div>
+      </div>
+    </div>
+    <div class="spacer-md"></div>
+    <div class="instagram-track" id="instagramTrack">
+      <div class="insta-card">
+        <img src="images/insta_01.jpg" alt="KRONOS lifestyle" />
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="insta-likes">♥ 2,847</span>
+        </div>
+      </div>
+      <div class="insta-card">
+        <img src="images/insta_02.jpg" alt="KRONOS movement" />
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="insta-likes">♥ 4,192</span>
+        </div>
+      </div>
+      <div class="insta-card">
+        <img src="images/insta_03.jpg" alt="KRONOS lifestyle" />
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="insta-likes">♥ 3,561</span>
+        </div>
+      </div>
+      <div class="insta-card">
+        <img src="images/insta_04.jpg" alt="KRONOS luxury" />
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="insta-likes">♥ 5,023</span>
+        </div>
+      </div>
+      <div class="insta-card">
+        <img src="images/insta_05.jpg" alt="KRONOS workshop" />
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="insta-likes">♥ 3,218</span>
+        </div>
+      </div>
+      <div class="insta-card">
+        <img src="images/insta_06.jpg" alt="KRONOS underwater" />
+        <div class="insta-overlay">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          <span class="insta-likes">♥ 6,734</span>
+        </div>
+      </div>
+    </div>
+    <div class="spacer-lg"></div>
+  </section>
+
+  <!-- ========== NEWSLETTER ========== -->
+  <section class="section section-newsletter" id="newsletterSection">
+    <div class="pad-side">
+      <div class="container">
+        <div class="newsletter-block reveal">
+          <div class="newsletter-content">
+            <div class="text-sm text-muted" style="letter-spacing:0.2em;text-transform:uppercase;">NEWSLETTER</div>
+            <div class="spacer-xs"></div>
+            <h2>Stay in <span class="italic">Time</span></h2>
+            <p class="text-sm text-muted" style="margin-top:0.8rem;max-width:400px;">Be the first to discover new collections, exclusive offers, and the art of fine watchmaking.</p>
+          </div>
+          <form class="newsletter-form" id="newsletterForm" onsubmit="return false;">
+            <div class="newsletter-input-group">
+              <input type="email" placeholder="Enter your email" class="newsletter-input" id="newsletterEmail" required />
+              <button type="submit" class="newsletter-btn magnetic-btn" id="newsletterBtn">
+                <div class="btn-fill"></div>
+                <span>SUBSCRIBE</span>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </button>
+            </div>
+            <div class="newsletter-success" id="newsletterSuccess">Thank you for subscribing!</div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="spacer-lg"></div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <!-- Real-Time SVG Clock -->
+      <div class="footer-clock-wrapper">
+        <svg viewBox="0 0 200 200" class="footer-clock-svg" id="footerClock">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="var(--color-accent)" stroke-width="1" opacity="0.3" />
+          <circle cx="100" cy="100" r="90" fill="none" stroke="var(--color-border)" stroke-width="0.5" />
+          <!-- Hour markers -->
+          <g stroke="var(--color-accent)" stroke-width="2" opacity="0.6">
+            <line x1="100" y1="12" x2="100" y2="22" />
+            <line x1="100" y1="178" x2="100" y2="188" />
+            <line x1="12" y1="100" x2="22" y2="100" />
+            <line x1="178" y1="100" x2="188" y2="100" />
+          </g>
+          <g stroke="var(--color-text-muted)" stroke-width="1" opacity="0.3">
+            <line x1="145" y1="13" x2="142" y2="23" />
+            <line x1="182" y1="55" x2="173" y2="59" />
+            <line x1="55" y1="13" x2="58" y2="23" />
+            <line x1="18" y1="55" x2="27" y2="59" />
+            <line x1="145" y1="187" x2="142" y2="177" />
+            <line x1="182" y1="145" x2="173" y2="141" />
+            <line x1="55" y1="187" x2="58" y2="177" />
+            <line x1="18" y1="145" x2="27" y2="141" />
+          </g>
+          <!-- Brand -->
+          <text x="100" y="68" text-anchor="middle" fill="var(--color-accent)" font-family="var(--font-display)" font-size="10" opacity="0.7">KRONOS</text>
+          <!-- Hands -->
+          <line x1="100" y1="100" x2="100" y2="45" id="footerHourHand" stroke="var(--color-text)" stroke-width="3" stroke-linecap="round" />
+          <line x1="100" y1="100" x2="100" y2="30" id="footerMinuteHand" stroke="var(--color-text)" stroke-width="2" stroke-linecap="round" />
+          <line x1="100" y1="110" x2="100" y2="25" id="footerSecondHand" stroke="var(--color-accent)" stroke-width="1" stroke-linecap="round" />
+          <circle cx="100" cy="100" r="4" fill="var(--color-accent)" />
+          <circle cx="100" cy="100" r="2" fill="var(--color-bg)" />
+        </svg>
+        <div class="footer-clock-label text-sm text-muted">Swiss Time</div>
+      </div>
+      <div class="footer-logo">KRONOS</div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Explore</div>
+          <div class="footer-links">
+            <a href="heritage.html" class="footer-link">About</a>
+            <a href="collections.html" class="footer-link">Watches</a>
+            <a href="journal.html" class="footer-link">Journal</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Experience</div>
+          <div class="footer-links">
+            <a href="configurator.html" class="footer-link">Customizer</a>
+            <a href="simulation.html" class="footer-link">Simulation</a>
+            <a href="boutique.html" class="footer-link">Book Appointment</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Collections</div>
+          <div class="footer-links">
+            <a href="collections.html?category=chronograph" class="footer-link">Chronograph</a>
+            <a href="collections.html?category=diver" class="footer-link">Diver</a>
+            <a href="collections.html?category=dress" class="footer-link">Dress</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 KRONOS. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- #pageContent -->
+
+  <!-- ========== PRODUCT DETAIL MODAL ========== -->
+  <div class="product-modal-overlay" id="productModalOverlay">
+    <div class="product-modal" id="productModal">
+      <button class="product-modal-close" id="productModalClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+      </button>
+      <div class="product-modal-grid">
+        <div class="product-modal-gallery">
+          <div class="product-modal-image" id="productModalImage">
+            <img src="" alt="" id="productModalImg" />
+          </div>
+          <div class="product-modal-thumbs" id="productModalThumbs"></div>
+        </div>
+        <div class="product-modal-info">
+          <div class="text-sm text-muted" style="letter-spacing:0.2em;text-transform:uppercase;">KRONOS COLLECTION</div>
+          <div class="spacer-xs"></div>
+          <h2 id="productModalName"></h2>
+          <div class="product-modal-price" id="productModalPrice"></div>
+          <div class="spacer-sm"></div>
+          <div class="product-modal-specs" id="productModalSpecs">
+            <div class="spec-row"><span class="spec-label">Case Material</span><span class="spec-value" id="specCase">Grade 5 Titanium</span></div>
+            <div class="spec-row"><span class="spec-label">Movement</span><span class="spec-value" id="specMovement">Automatic Caliber K-200</span></div>
+            <div class="spec-row"><span class="spec-label">Case Diameter</span><span class="spec-value" id="specDiameter">42mm</span></div>
+            <div class="spec-row"><span class="spec-label">Water Resistance</span><span class="spec-value" id="specWater">100m / 330ft</span></div>
+            <div class="spec-row"><span class="spec-label">Power Reserve</span><span class="spec-value" id="specPower">72 Hours</span></div>
+            <div class="spec-row"><span class="spec-label">Crystal</span><span class="spec-value" id="specCrystal">Sapphire, AR-coated</span></div>
+          </div>
+          <div class="spacer-sm"></div>
+          <div class="product-modal-actions">
+            <button class="newsletter-btn product-modal-wishlist" id="productModalWishlist" style="flex:1;justify-content:center;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              <span>ADD TO WISHLIST</span>
+            </button>
+            <a href="boutique.html" class="newsletter-btn" style="flex:1;justify-content:center;text-decoration:none;">
+              <span>BOOK APPOINTMENT</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== WISHLIST DRAWER ========== -->
+  <div class="wishlist-overlay" id="wishlistOverlay"></div>
+  <div class="wishlist-drawer" id="wishlistDrawer">
+    <div class="wishlist-header">
+      <h3>My <span class="italic">Wishlist</span></h3>
+      <button class="wishlist-drawer-close" id="wishlistDrawerClose">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="24" height="24"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+      </button>
+    </div>
+    <div class="wishlist-items" id="wishlistItems">
+      <div class="wishlist-empty" id="wishlistEmpty">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="var(--color-text-muted)" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <p>Your wishlist is empty</p>
+        <a href="collections.html" class="btn-outline" style="margin-top:1rem;"><div class="btn-fill"></div><span>EXPLORE COLLECTIONS</span></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONOS® - Our Heritage</title>
+  <meta name="description" content="Discover the history of KRONOS. Since 1888, crafting mechanical masterpieces in the heart of Switzerland." />
+  <meta property="og:title" content="KRONOS® - Our Heritage" />
+  <meta property="og:description" content="Discover the history of KRONOS. Since 1888, crafting mechanical masterpieces in the heart of Switzerland." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌚</text></svg>" />
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== PAGE TRANSITION MASK ========== -->
+  <div class="page-transition-mask" id="transitionMask">
+    <div class="page-transition-logo">KRONOS</div>
+  </div>
+
+  <!-- ========== CUSTOM CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ========== SCROLL PROGRESS BAR ========== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ========== FILM GRAIN OVERLAY ========== -->
+  <div class="film-grain" id="filmGrain"></div>
+
+  <!-- ========== INTRO LOADER WITH COUNTER ========== -->
+  <div class="intro-loader" id="introLoader">
+    <div class="intro-logo" id="introLogo">KRONOS</div>
+    <div class="intro-counter" id="introCounter">0</div>
+    <div class="intro-progress">
+      <div class="intro-progress-bar" id="introProgressBar"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" id="navbar">
+    <a href="index.html" class="logo-text">KRONOS</a>
+    <div class="nav-links" id="navLinks">
+      <a href="collections.html" class="nav-link hide-tablet">Collections</a>
+      <a href="configurator.html" class="nav-link hide-tablet">Customizer</a>
+      <a href="simulation.html" class="nav-link hide-tablet">Simulation</a>
+      <a href="heritage.html" class="nav-link hide-tablet">Heritage</a>
+      <a href="boutique.html" class="nav-link">Boutique</a>
+      <a href="journal.html" class="nav-link">Journal</a>
+    </div>
+    <div class="nav-right">
+      <!-- ========== AUDIO TOGGLE HUD ========== -->
+      <div class="audio-hud" id="audioToggle" title="Toggle Mechanical ticking sound">
+        <div class="audio-bars">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+        <div class="audio-label">SOUND</div>
+      </div>
+      <a href="collections.html" class="btn-shop" id="btnShop">
+        <div class="btn-fill"></div>
+        <span>SHOP NOW</span>
+      </a>
+      <div class="menu-toggle" id="menuToggle">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== MOBILE FULL-SCREEN NAV ========== -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-links">
+        <a href="collections.html" class="mobile-nav-link" data-index="1">Collections</a>
+        <a href="configurator.html" class="mobile-nav-link" data-index="2">Customizer</a>
+        <a href="simulation.html" class="mobile-nav-link" data-index="3">Simulation</a>
+        <a href="heritage.html" class="mobile-nav-link" data-index="4">Heritage</a>
+        <a href="boutique.html" class="mobile-nav-link" data-index="5">Boutique</a>
+        <a href="journal.html" class="mobile-nav-link" data-index="6">Journal</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="collections.html" class="mobile-nav-btn btn-shop">
+          <div class="btn-fill"></div>
+          <span>SHOP NOW</span>
+        </a>
+        <div class="mobile-nav-social">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MENU OVERLAY ========== -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ========== SIDE PANEL ========== -->
+  <div class="side-panel-wrapper" id="sidePanel">
+    <div class="side-panel">
+      <div class="panel-close" id="panelClose">
+        <svg viewBox="0 0 24 24" fill="none"><line x1="4" y1="4" x2="20" y2="20"/><line x1="20" y1="4" x2="4" y2="20"/></svg>
+      </div>
+      <div class="panel-content">
+        <h2><span class="italic">Precision</span> Movement</h2>
+        <div class="spacer-xs"></div>
+        <p>Our watches feature precise, reliable movements with advanced complications including automatic calibers, chronograph functions, and tourbillon mechanisms for optimal performance.</p>
+        <div class="panel-features">
+          <div class="panel-feature">
+            <div class="num">01</div>
+            <div class="label">Swiss Movement</div>
+          </div>
+          <div class="panel-feature">
+            <div class="num">02</div>
+            <div class="label">72-Hour Reserve</div>
+          </div>
+          <div class="panel-feature">
+            <div class="num">03</div>
+            <div class="label">Chronometer Certified</div>
+          </div>
+        </div>
+      </div>
+      <div class="panel-media">
+        <img src="images/feature_01.jpg" alt="Watch detail" />
+      </div>
+      <div class="panel-ticker">
+        <div class="super-text blend">Precision movement — Precision movement — Precision movement — </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== PAGE CONTENT WRAPPER FOR AJAX TRANSITIONS ========== -->
+  <div id="pageContent">
+
+  <!-- ========== HERITAGE STORY ========== -->
+  <main class="section-heritage">
+    <div class="pad-side">
+      <div class="container">
+        
+        <div class="heritage-story-banner reveal">
+          <div class="text-sm text-muted" style="letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.8rem;">THE KRONOS LEGACY</div>
+          <h1 style="margin-bottom: 2rem;">The Essence of <span class="italic">Time</span></h1>
+          <p>Founded in Geneva, Switzerland, KRONOS has spent over a century engineering high-complication mechanical timepieces. Combining classical watchmaking principles with cutting-edge micro-mechanics, we create watches that are functional works of art designed to endure for generations.</p>
+        </div>
+
+        <!-- Vertical Timeline Grid -->
+        <div class="timeline-container">
+          
+          <!-- Node 1 -->
+          <div class="timeline-row reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-col">
+              <div class="timeline-card">
+                <div class="timeline-date">1888</div>
+                <h3>Swiss Geneva Origins</h3>
+                <p>Elias Kronos establishes a small watchmaking atelier in Geneva, constructing custom chronometer escapements by hand for European nobility.</p>
+              </div>
+            </div>
+            <div class="timeline-col"></div>
+          </div>
+
+          <!-- Node 2 -->
+          <div class="timeline-row reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-col">
+              <div class="timeline-card">
+                <div class="timeline-date">1912</div>
+                <h3>The Chronograph Era</h3>
+                <p>KRONOS patents its first mechanical pocket chronograph featuring split-second interval timing, setting a new standard for precision racing measurements.</p>
+              </div>
+            </div>
+            <div class="timeline-col"></div>
+          </div>
+
+          <!-- Node 3 -->
+          <div class="timeline-row reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-col">
+              <div class="timeline-card">
+                <div class="timeline-date">1954</div>
+                <h3>Deep Ocean Depths</h3>
+                <p>Launching the Diver Titan prototype, featuring a hermetically sealed titanium case capable of withstanding pressures down to 300 meters deep.</p>
+              </div>
+            </div>
+            <div class="timeline-col"></div>
+          </div>
+
+          <!-- Node 4 -->
+          <div class="timeline-row reveal">
+            <div class="timeline-node"></div>
+            <div class="timeline-col">
+              <div class="timeline-card">
+                <div class="timeline-date">2026</div>
+                <h3>Caliber Masterpieces</h3>
+                <p>Introducing skeletal titanium watch architecture, revealing the hand-polished movements and gears directly through the sapphire crystal dial.</p>
+              </div>
+            </div>
+            <div class="timeline-col"></div>
+          </div>
+
+        </div>
+
+        <div class="spacer-lg"></div>
+        <div class="border-line" id="craftsmanship"></div>
+        <div class="spacer-lg"></div>
+
+        <!-- Craftsmanship Showcase -->
+        <div class="craftsmanship-grid">
+          <div class="craftsmanship-text reveal">
+            <div class="text-sm text-muted" style="letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.8rem;">ENGINEERING</div>
+            <h3>Swiss Caliber <span class="italic">Movements</span></h3>
+            <p>Every KRONOS timepiece is powered by our in-house calibers. Composed of up to 300 micro-components, these mechanical engines are hand-assembled and adjusted in five positions to ensure chronometric perfection.</p>
+            <p>Using self-winding automatic rotors with 72-hour reserve capacities, the watches convert kinetic wrist movement into mechanical energy seamlessly.</p>
+          </div>
+          <div class="craftsmanship-image reveal">
+            <img src="images/feature_01.jpg" alt="Mechanical Movement details" />
+          </div>
+        </div>
+
+        <div class="spacer-lg"></div>
+
+        <div class="craftsmanship-grid" style="direction: rtl;">
+          <div class="craftsmanship-text reveal" style="direction: ltr;">
+            <div class="text-sm text-muted" style="letter-spacing:0.2em;text-transform:uppercase;margin-bottom:0.8rem;">MATERIALS</div>
+            <h3>Grade 5 <span class="italic">Titanium</span></h3>
+            <p>To construct timepieces fit for the modern gentleman, we select resilient, biocompatible raw materials. Our cases are milled from solid blocks of aerospace-grade titanium and hand-polished to create contrasting brushed and specular facets.</p>
+            <p>Sealed under premium double-domed sapphire crystal with anti-reflective coating, the face provides scratch-proof visibility under any lighting conditions.</p>
+          </div>
+          <div class="craftsmanship-image reveal">
+            <img src="images/feature_02.jpg" alt="Resilient Raw Materials" />
+          </div>
+        </div>
+
+        <div class="spacer-lg"></div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">KRONOS</div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Explore</div>
+          <div class="footer-links">
+            <a href="heritage.html" class="footer-link">About</a>
+            <a href="collections.html" class="footer-link">Watches</a>
+            <a href="collections.html?filter=new" class="footer-link">New Models</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Customer Care</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Track Order</a>
+            <a href="#" class="footer-link">Returns</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Collections</div>
+          <div class="footer-links">
+            <a href="collections.html?category=chronograph" class="footer-link">Chronograph</a>
+            <a href="collections.html?category=diver" class="footer-link">Diver</a>
+            <a href="collections.html?category=dress" class="footer-link">Dress</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 KRONOS. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- #pageContent -->
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

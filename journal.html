@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KRONOS® - The Journal</title>
+  <meta name="description" content="The KRONOS Journal — Stories of craftsmanship, heritage, and the art of mechanical watchmaking." />
+  <meta property="og:title" content="KRONOS® - The Journal" />
+  <meta property="og:description" content="The KRONOS Journal — Stories of craftsmanship, heritage, and the art of mechanical watchmaking." />
+  <meta property="og:type" content="website" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌚</text></svg>" />
+  <!--
+    CSS CLASSES TO ADD TO style.css:
+    ─────────────────────────────────
+    .section-journal          – main section wrapper, padding-top for nav clearance
+    .journal-header           – centered page header block
+    .journal-featured         – full-width hero article card with background image
+    .journal-featured-content – text overlay positioned over hero image
+    .journal-category-tag     – uppercase gold category label
+    .journal-grid             – 3-column responsive grid for article cards
+    .journal-card             – individual article card with hover scale/glow
+    .journal-card-image       – image container with overflow hidden
+    .journal-card-content     – text content block inside card
+    .journal-meta             – author / date / reading time row
+    .journal-load-more        – centered wrapper for the load more button
+  -->
+</head>
+<body>
+
+  <!-- ========== PARTICLE CANVAS ========== -->
+  <canvas id="particleCanvas"></canvas>
+
+  <!-- ========== PAGE TRANSITION MASK ========== -->
+  <div class="page-transition-mask" id="transitionMask">
+    <div class="page-transition-logo">KRONOS</div>
+  </div>
+
+  <!-- ========== CUSTOM CURSOR ========== -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-follower" id="cursorFollower"></div>
+
+  <!-- ========== SCROLL PROGRESS BAR ========== -->
+  <div class="scroll-progress" id="scrollProgress"></div>
+
+  <!-- ========== FILM GRAIN OVERLAY ========== -->
+  <div class="film-grain" id="filmGrain"></div>
+
+  <!-- ========== INTRO LOADER WITH COUNTER ========== -->
+  <div class="intro-loader" id="introLoader">
+    <div class="intro-logo" id="introLogo">KRONOS</div>
+    <div class="intro-counter" id="introCounter">0</div>
+    <div class="intro-progress">
+      <div class="intro-progress-bar" id="introProgressBar"></div>
+    </div>
+  </div>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="nav-bar" id="navbar">
+    <a href="index.html" class="logo-text">KRONOS</a>
+    <div class="nav-links" id="navLinks">
+      <a href="collections.html" class="nav-link hide-tablet">Collections</a>
+      <a href="configurator.html" class="nav-link hide-tablet">Customizer</a>
+      <a href="simulation.html" class="nav-link hide-tablet">Simulation</a>
+      <a href="heritage.html" class="nav-link hide-tablet">Heritage</a>
+      <a href="boutique.html" class="nav-link">Boutique</a>
+      <a href="journal.html" class="nav-link">Journal</a>
+    </div>
+    <div class="nav-right">
+      <!-- ========== AUDIO TOGGLE HUD ========== -->
+      <div class="audio-hud" id="audioToggle" title="Toggle Mechanical ticking sound">
+        <div class="audio-bars">
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+          <div class="audio-bar"></div>
+        </div>
+        <div class="audio-label">SOUND</div>
+      </div>
+      <a href="collections.html" class="btn-shop" id="btnShop">
+        <div class="btn-fill"></div>
+        <span>SHOP NOW</span>
+      </a>
+      <div class="menu-toggle" id="menuToggle">
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+        <div class="menu-line"></div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========== MOBILE FULL-SCREEN NAV ========== -->
+  <div class="mobile-nav" id="mobileNav">
+    <div class="mobile-nav-inner">
+      <div class="mobile-nav-links">
+        <a href="collections.html" class="mobile-nav-link" data-index="1">Collections</a>
+        <a href="configurator.html" class="mobile-nav-link" data-index="2">Customizer</a>
+        <a href="simulation.html" class="mobile-nav-link" data-index="3">Simulation</a>
+        <a href="heritage.html" class="mobile-nav-link" data-index="4">Heritage</a>
+        <a href="boutique.html" class="mobile-nav-link" data-index="5">Boutique</a>
+        <a href="journal.html" class="mobile-nav-link" data-index="6">Journal</a>
+      </div>
+      <div class="mobile-nav-footer">
+        <a href="collections.html" class="mobile-nav-btn btn-shop">
+          <div class="btn-fill"></div>
+          <span>SHOP NOW</span>
+        </a>
+        <div class="mobile-nav-social">
+          <a href="#">Instagram</a>
+          <a href="#">Twitter</a>
+          <a href="#">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== MENU OVERLAY ========== -->
+  <div class="menu-overlay" id="menuOverlay"></div>
+
+  <!-- ========== PAGE CONTENT WRAPPER FOR AJAX TRANSITIONS ========== -->
+  <div id="pageContent">
+
+  <!-- ========== JOURNAL CONTENT ========== -->
+  <main class="section-journal">
+    <div class="pad-side">
+      <div class="container">
+
+        <!-- ===== Page Header ===== -->
+        <div class="spacer-lg"></div>
+        <div class="journal-header reveal">
+          <div class="text-sm text-muted" style="letter-spacing:0.25em;text-transform:uppercase;margin-bottom:0.8rem;">STORIES &amp; INSIGHTS</div>
+          <h1>The KRONOS <span class="italic">Journal</span></h1>
+          <p>Discover the stories behind the craft — from the ateliers of Geneva to the wrists of visionaries. Watchmaking narratives, material science, and the pursuit of perfection.</p>
+        </div>
+
+        <div class="spacer-lg"></div>
+
+        <!-- ===== Featured / Hero Article ===== -->
+        <a href="#" class="journal-featured reveal">
+          <div class="journal-featured-image">
+            <img src="images/feature_01.jpg" alt="The Art of Hand-Finished Movements" />
+          </div>
+          <div class="journal-featured-content">
+            <div class="journal-category-tag">CRAFTSMANSHIP</div>
+            <h2>The Art of Hand-Finished Movements</h2>
+            <p>An intimate look inside the KRONOS atelier, where master watchmakers spend over 40 hours hand-finishing a single caliber — bevelling bridges, polishing jewel sinks, and engraving Geneva stripes with techniques unchanged for two centuries.</p>
+            <div class="journal-meta">
+              <span>KRONOS Editorial</span>
+              <span>June 28, 2026</span>
+              <span>8 min read</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="spacer-lg"></div>
+        <div class="border-line"></div>
+        <div class="spacer-lg"></div>
+
+        <!-- ===== Article Grid ===== -->
+        <div class="journal-grid">
+
+          <!-- Card 1 -->
+          <a href="#" class="journal-card reveal">
+            <div class="journal-card-image">
+              <img src="images/feature_02.jpg" alt="Forged in Fire: The Titanium Process" />
+            </div>
+            <div class="journal-card-content">
+              <div class="journal-category-tag">HERITAGE</div>
+              <h3>Forged in Fire: The Titanium Process</h3>
+              <p>How KRONOS sources and mills aerospace-grade titanium into watch cases that defy weight and time.</p>
+              <div class="journal-meta">
+                <span>KRONOS Editorial</span>
+                <span>June 22, 2026</span>
+                <span>6 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 2 -->
+          <a href="#" class="journal-card reveal">
+            <div class="journal-card-image">
+              <img src="images/detail_01.jpg" alt="Inside the Caliber K-4200" />
+            </div>
+            <div class="journal-card-content">
+              <div class="journal-category-tag">ENGINEERING</div>
+              <h3>Inside the Caliber K-4200</h3>
+              <p>A technical deep dive into our latest self-winding movement — 312 components, 72-hour power reserve, and a silicon escapement.</p>
+              <div class="journal-meta">
+                <span>Marc Levasseur</span>
+                <span>June 15, 2026</span>
+                <span>10 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 3 -->
+          <a href="#" class="journal-card reveal">
+            <div class="journal-card-image">
+              <img src="images/hero_bg_01.jpg" alt="A Week on the Wrist: The Navigator GMT" />
+            </div>
+            <div class="journal-card-content">
+              <div class="journal-category-tag">LIFESTYLE</div>
+              <h3>A Week on the Wrist: The Navigator GMT</h3>
+              <p>From boardrooms in Zürich to midnight arrivals in Tokyo — living with the KRONOS Navigator across five time zones.</p>
+              <div class="journal-meta">
+                <span>Eloise Hartmann</span>
+                <span>June 8, 2026</span>
+                <span>5 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 4 -->
+          <a href="#" class="journal-card reveal">
+            <div class="journal-card-image">
+              <img src="images/hero_bg_02.jpg" alt="Sapphire Crystal: Engineering Transparency" />
+            </div>
+            <div class="journal-card-content">
+              <div class="journal-category-tag">MATERIALS</div>
+              <h3>Sapphire Crystal: Engineering Transparency</h3>
+              <p>The science behind our double-domed anti-reflective sapphire — grown at 2,000°C and polished to optical perfection.</p>
+              <div class="journal-meta">
+                <span>KRONOS Editorial</span>
+                <span>May 30, 2026</span>
+                <span>7 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 5 -->
+          <a href="#" class="journal-card reveal">
+            <div class="journal-card-image">
+              <img src="images/hero_bg_03.jpg" alt="The Tourbillon Paradox" />
+            </div>
+            <div class="journal-card-content">
+              <div class="journal-category-tag">DEEP DIVE</div>
+              <h3>The Tourbillon Paradox</h3>
+              <p>Born to defeat gravity in pocket watches, does the tourbillon still matter on the modern wrist? We examine the mythology and mechanics.</p>
+              <div class="journal-meta">
+                <span>Dr. Henrik Olsen</span>
+                <span>May 18, 2026</span>
+                <span>12 min read</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Card 6 -->
+          <a href="#" class="journal-card reveal">
+            <div class="journal-card-image">
+              <img src="images/feature_01.jpg" alt="Luminescence: The Future of Dial Legibility" />
+            </div>
+            <div class="journal-card-content">
+              <div class="journal-category-tag">INNOVATION</div>
+              <h3>Luminescence: The Future of Dial Legibility</h3>
+              <p>From radium to Super-LumiNova — how KRONOS developed a proprietary compound that glows for 14 hours in total darkness.</p>
+              <div class="journal-meta">
+                <span>KRONOS Editorial</span>
+                <span>May 5, 2026</span>
+                <span>6 min read</span>
+              </div>
+            </div>
+          </a>
+
+        </div><!-- .journal-grid -->
+
+        <div class="spacer-lg"></div>
+
+        <!-- ===== Load More ===== -->
+        <div class="journal-load-more reveal">
+          <a href="#" class="btn-outline">Load More Articles</a>
+        </div>
+
+        <div class="spacer-lg"></div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-logo">KRONOS</div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <div class="footer-col-title">Explore</div>
+          <div class="footer-links">
+            <a href="heritage.html" class="footer-link">About</a>
+            <a href="collections.html" class="footer-link">Watches</a>
+            <a href="collections.html?filter=new" class="footer-link">New Models</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Customer Care</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Contact</a>
+            <a href="#" class="footer-link">Track Order</a>
+            <a href="#" class="footer-link">Returns</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Collections</div>
+          <div class="footer-links">
+            <a href="collections.html?category=chronograph" class="footer-link">Chronograph</a>
+            <a href="collections.html?category=diver" class="footer-link">Diver</a>
+            <a href="collections.html?category=dress" class="footer-link">Dress</a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <div class="footer-col-title">Legal</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link">Privacy Policy</a>
+            <a href="#" class="footer-link">Terms of Service</a>
+            <a href="#" class="footer-link">Cookie Policy</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 KRONOS. All rights reserved.</p>
+        <div class="footer-social">
+          <a href="#" class="social-link">Instagram</a>
+          <a href="#" class="social-link">Twitter</a>
+          <a href="#" class="social-link">YouTube</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  </div><!-- #pageContent -->
+
+  <!-- ========== BACK TO TOP ========== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
